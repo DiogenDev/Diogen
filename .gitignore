@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+build/
+.vercel/
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+Thumbs.db
+
+# Служебное для редактора: внутри абсолютные пути этой машины
+.claude/
+
+# Рабочие документы, к сайту отношения не имеют
+*.docx

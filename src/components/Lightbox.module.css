@@ -1,0 +1,174 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: color-mix(in srgb, #020617 88%, transparent);
+  backdrop-filter: blur(18px) saturate(120%);
+  animation: fade 220ms var(--ease) both;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- верхняя панель ---------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--gutter);
+}
+
+.counter,
+.zoomValue {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.zoomValue {
+  min-width: 3.5em;
+  text-align: center;
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.tool {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  color: #e2e8f0;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.tool:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.tool:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---------- картинка ---------- */
+
+/* minmax(0, 1fr), а не 1fr: иначе строка не даёт себя сжать
+   и высокий снимок вылезает за низ экрана. */
+.stage {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  place-items: center;
+  gap: var(--sp-3);
+  min-height: 0;
+  padding: 0 calc(var(--gutter) + 3.5rem) var(--sp-5);
+  overflow: hidden;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  /* Плавное приближение, но без инерции при перетаскивании */
+  transition: transform 160ms var(--ease);
+  touch-action: none;
+  user-select: none;
+}
+
+.caption {
+  font-size: var(--text-sm);
+  color: #94a3b8;
+  text-align: center;
+  max-width: 60ch;
+}
+
+/* ---------- листание ---------- */
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  color: #e2e8f0;
+  font-size: 1.6rem;
+  line-height: 1;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.nav:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.nav:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.prev {
+  left: var(--gutter);
+}
+
+.next {
+  right: var(--gutter);
+}
+
+@media (max-width: 40rem) {
+  .nav {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.3rem;
+  }
+
+  .caption {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop {
+    animation: none;
+  }
+
+  .image {
+    transition: none;
+  }
+
+  .tool:hover:not(:disabled) {
+    transform: none;
+  }
+}
