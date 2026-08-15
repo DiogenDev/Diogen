@@ -11,7 +11,7 @@
   padding-bottom: var(--sp-7);
 }
 
-/* Вертикальная линия — псевдоэлемент, чтобы у последнего пункта её обрезать */
+/* Вертикальная линия это псевдоэлемент, чтобы у последнего пункта её обрезать */
 .item::before {
   content: "";
   position: absolute;
@@ -57,7 +57,7 @@
 }
 
 .title {
-  font-size: var(--text-lg);
+  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.85rem);
 }
 
 .meta {

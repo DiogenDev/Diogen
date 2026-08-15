@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  * Точечное поле: сетка точек, которые подрастают и расходятся под курсором,
  * а сами по себе едва заметно дышат.
  *
- * Идея — из скилла lightweight-3d-effects (фон в духе Vanta), но написана
+ * Идея взята из скилла lightweight-3d-effects (фон в духе Vanta), но написана
  * на canvas 2D вручную: библиотеки оттуда грузятся с CDN, а политика
  * безопасности сайта запрещает сторонние домены. Заодно в бандл не попадают
  * ни three.js, ни p5.js.
@@ -75,7 +75,7 @@ export default function CanvasField() {
           const size = 1 + wave * 0.4 + glow * 3.4;
           const alpha = 0.26 + wave * 0.1 + glow * 0.6;
 
-          // Точки чуть отодвигаются от курсора — поле «расступается»
+          // Точки чуть отодвигаются от курсора, поле «расступается»
           const push = glow * 7;
           const px = dist > 0 ? x + (dx / dist) * push : x;
           const py = dist > 0 ? y + (dy / dist) * push : y;
@@ -113,7 +113,7 @@ export default function CanvasField() {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      // Курсор далеко за пределами поля — гасим ореол
+      // Курсор далеко за пределами поля, гасим ореол
       const outside = x < -RADIUS || y < -RADIUS || x > width + RADIUS || y > height + RADIUS;
       target.x = outside ? -9999 : x;
       target.y = outside ? -9999 : y;
@@ -123,7 +123,7 @@ export default function CanvasField() {
     resize();
     draw();
 
-    // Вне экрана цикл не крутится — фон не жжёт батарею впустую
+    // Вне экрана цикл не крутится: фон не жжёт батарею впустую
     const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
     io.observe(canvas);
 
@@ -133,7 +133,7 @@ export default function CanvasField() {
     });
     ro.observe(canvas);
 
-    // Тема переключается — цвет точек должен уехать за ней
+    // Тема переключается, цвет точек должен уехать за ней
     const mo = new MutationObserver(() => {
       readColor();
       if (!running) draw();

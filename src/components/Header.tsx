@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={`shell ${styles.inner}`}>
-        <a href="#top" className={styles.brand}>
+        <a href="#top" className={`display ${styles.brand}`}>
           {site.nickPlain}
           <span className={styles.dot} aria-hidden="true" />
         </a>

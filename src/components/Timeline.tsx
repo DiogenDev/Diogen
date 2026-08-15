@@ -6,7 +6,9 @@ export default function Timeline() {
     <section className="section" id="experience">
       <div className="shell">
         <p className="section-label">Опыт</p>
-        <h2 className="section-title">Путь в разработке</h2>
+        <h2 className="section-title">
+          Путь <em>в разработке</em>
+        </h2>
 
         <ol className={styles.list}>
           {timeline.map((entry) => (
@@ -15,7 +17,7 @@ export default function Timeline() {
 
               <div className={styles.content}>
                 <p className={`mono ${styles.period}`}>{entry.period}</p>
-                <h3 className={styles.title}>{entry.title}</h3>
+                <h3 className={`display ${styles.title}`}>{entry.title}</h3>
                 <p className={`mono ${styles.meta}`}>{entry.meta}</p>
 
                 <ul className={styles.points}>

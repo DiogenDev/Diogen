@@ -29,7 +29,7 @@ export default function CardSpotlight() {
     };
 
     const onMove = (e: PointerEvent) => {
-      // Целью может прийти не элемент (например, сам документ) —
+      // Целью может прийти не элемент (например, сам документ),
       // тогда closest вызывать не на чем
       const target = e.target;
       if (!(target instanceof Element)) return;
@@ -44,7 +44,7 @@ export default function CardSpotlight() {
         y: ((e.clientY - r.top) / r.height) * 100,
       };
 
-      // Запись в стиль — раз в кадр, иначе на каждое движение мыши
+      // Запись в стиль идёт раз в кадр, иначе на каждое движение мыши
       // происходит пересчёт layout
       if (!frame) frame = requestAnimationFrame(flush);
     };

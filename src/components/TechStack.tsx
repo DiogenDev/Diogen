@@ -6,7 +6,9 @@ export default function TechStack() {
     <section className="section" id="stack">
       <div className="shell">
         <p className="section-label">Стек</p>
-        <h2 className="section-title">Чем работаю</h2>
+        <h2 className="section-title">
+          Чем <em>работаю</em>
+        </h2>
 
         <div className={styles.groups}>
           {stackGroups.map((group) => (

@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import RevealController from "@/components/RevealController";
 import CardSpotlight from "@/components/CardSpotlight";
 import Lightbox from "@/components/Lightbox";
+import SmoothScroll from "@/components/SmoothScroll";
+import Magnetic from "@/components/Magnetic";
+import ClipPlayer from "@/components/ClipPlayer";
 import { site, socials } from "@/lib/site";
 import { stackGroups } from "@/lib/content";
 
@@ -40,8 +43,14 @@ export default function Home() {
         <Services />
       </main>
       <Footer />
+      {/* Поведение вынесено в отдельные контроллеры: каждый вешает
+          один слушатель на документ и сам решает, включаться ли
+          на этом устройстве. */}
+      <SmoothScroll />
       <RevealController />
       <CardSpotlight />
+      <Magnetic />
+      <ClipPlayer />
       <Lightbox />
     </>
   );

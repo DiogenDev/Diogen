@@ -1,13 +1,17 @@
+/* Тот же материал, что у кнопок и карточек: размытие, градиентная
+   заливка, многосторонний кант. Раньше кнопка была на плоской
+   подложке и в шапке смотрелась деталью из другого набора. */
 .toggle {
   display: grid;
   place-items: center;
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 2.6rem;
+  height: 2.6rem;
   border: 1px solid var(--glass-border);
   border-radius: 999px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(14px) saturate(150%);
-  box-shadow: var(--glass-shine);
+  background: linear-gradient(160deg, var(--glass-bg), var(--glass-bg-2));
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shine), var(--glass-shadow);
   color: var(--text-muted);
   transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease),
     transform var(--dur) var(--ease);
@@ -15,11 +19,11 @@
 
 .toggle:hover {
   color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-  transform: translateY(-2px);
+  border-color: var(--glass-border-hi);
+  transform: translateY(-1px);
 }
 
-@supports not (backdrop-filter: blur(4px)) {
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
   .toggle {
     background: var(--surface);
   }

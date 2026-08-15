@@ -12,7 +12,7 @@ function readTheme(): Theme {
 
 export default function ThemeToggle() {
   // На сервере темы нет: первый рендер всегда «dark», реальное значение
-  // подхватывается в useEffect — иначе будет рассинхрон гидрации.
+  // подхватывается в useEffect, иначе будет рассинхрон гидрации.
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => setTheme(readTheme()), []);
@@ -23,7 +23,7 @@ export default function ThemeToggle() {
     try {
       localStorage.setItem("theme", next);
     } catch {
-      /* приватный режим — просто не запоминаем выбор */
+      /* приватный режим: просто не запоминаем выбор */
     }
     setTheme(next);
   }, []);

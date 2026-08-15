@@ -3,12 +3,15 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer} id="contact">
+    <footer className={`textured ${styles.footer}`} id="contact">
       <div className="shell">
         <div className={styles.cta}>
-          <h2 className={styles.ctaTitle}>Обсудим задачу</h2>
+          <p className={`caps ${styles.ctaLabel}`}>Контакты</p>
+          <h2 className={`display ${styles.ctaTitle}`}>
+            Обсудим <em>задачу</em>
+          </h2>
           <p className={styles.ctaBody}>
-            Напишите, что нужно сделать. Техническое задание не обязательно —
+            Напишите, что нужно сделать. Техническое задание не обязательно:
             разберусь по описанию и назову сроки и цену.
           </p>
           <a
@@ -16,6 +19,7 @@ export default function Footer() {
             href={`https://t.me/${TELEGRAM_USER}`}
             target="_blank"
             rel="noopener noreferrer"
+            data-magnet
           >
             <span>Написать в Telegram</span>
           </a>
@@ -23,7 +27,7 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <p className={`mono ${styles.copy}`}>
-            © {new Date().getFullYear()} {site.name} — {site.nick}
+            © {new Date().getFullYear()} {site.name} · {site.nick}
           </p>
 
           <ul className={styles.links}>

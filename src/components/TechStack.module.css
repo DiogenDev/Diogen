@@ -16,7 +16,7 @@
   font-family: var(--font-mono), monospace;
   font-size: var(--text-xs);
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
   color: var(--text-dim);
   padding-top: 0.35rem;

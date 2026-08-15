@@ -1,41 +1,60 @@
 /* ============================================================
-   diogen(dev) — минималистичная тёмная тема
-   Токены → сброс → типографика → раскладка → утилиты
+   diogen(dev): обсидиан и редакционная типографика
+   Токены → сброс → типографика → раскладка → материал → движение
    ============================================================ */
 
 /* ---------- 1. Токены ---------- */
 
 :root {
-  /* Тёмная тема — основная */
-  --bg: #020617;
-  --surface: #0f172a;
-  --surface-2: #172033;
-  --border: #1e293b;
-  --border-strong: #334155;
+  /* Не чистый чёрный, а обсидиан: у него есть температура, и слои
+     поверх него читаются как материал, а не как дырки в заливке. */
+  --bg: #0b0d10;
+  --bg-deep: #07090b;
+  --surface: #10131a;
+  --surface-2: #161a22;
 
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  /* Границы заданы прозрачностью, а не цветом: одна и та же линия
+     ложится и на подложку, и на стекло, и на картинку. */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
 
-  /* Единственный акцент. Только активные состояния, ссылки и теги стека. */
-  --accent: #34d399;
-  --accent-dim: rgba(52, 211, 153, 0.12);
-  --accent-line: rgba(52, 211, 153, 0.35);
-  --on-accent: #022c22;
-  /* Второй, холодный оттенок — только для подложки, в интерфейсе не участвует */
-  --sky: #38bdf8;
+  /* Костяной, а не белый. Чистый #fff на обсидиане звенит. */
+  --text: #ece9e4;
+  --text-muted: #9ba1a9;
+  --text-dim: #6b717a;
 
-  /* Типографика — текучая шкала, без брейкпоинтов */
+  /* Приглушённый нефрит вместо неонового: тот же цвет, но
+     выкрученный вниз по насыщенности, читается дороже. */
+  --accent: #7fd1ae;
+  --accent-dim: rgba(127, 209, 174, 0.1);
+  --accent-line: rgba(127, 209, 174, 0.3);
+  --on-accent: #06231a;
+
+  /* Тёплая бронза: только волосяные линии, курсив и мелкие детали.
+     Второй акцент нужен редакционной подаче, но в интерфейсе
+     он не кликается и ничего не обозначает. */
+  --bronze: #b9a48a;
+  --bronze-line: rgba(185, 164, 138, 0.28);
+
+  --sky: #7aa2c4;
+
+  /* Типографика. Две шкалы: наборная для гротеска и отдельная,
+     более крупная, для антиквы. Cormorant рисует мелко, на равном
+     кегле он выглядел бы подписью, а не заголовком. */
   --text-xs: clamp(0.75rem, 0.73rem + 0.09vw, 0.8rem);
   --text-sm: clamp(0.85rem, 0.82rem + 0.14vw, 0.925rem);
   --text-base: clamp(0.95rem, 0.91rem + 0.19vw, 1.05rem);
   --text-lg: clamp(1.1rem, 1.03rem + 0.33vw, 1.3rem);
   --text-xl: clamp(1.3rem, 1.18rem + 0.56vw, 1.65rem);
-  --text-2xl: clamp(1.6rem, 1.4rem + 0.94vw, 2.2rem);
-  --text-3xl: clamp(2rem, 1.63rem + 1.75vw, 3.1rem);
-  --text-4xl: clamp(2.4rem, 1.8rem + 2.85vw, 4.2rem);
 
-  /* Ритм — щедрый воздух */
+  --display-sm: clamp(1.9rem, 1.5rem + 1.7vw, 2.9rem);
+  --display-md: clamp(2.4rem, 1.8rem + 2.7vw, 4.1rem);
+  --display-lg: clamp(3rem, 2rem + 4.6vw, 6.4rem);
+
+  /* Разрядка мелких надписей в верхнем регистре */
+  --track-caps: 0.08em;
+
+  /* Ритм */
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
@@ -44,49 +63,91 @@
   --sp-6: 2rem;
   --sp-7: 3rem;
   --sp-8: 4rem;
-  --sp-9: clamp(4.5rem, 3.5rem + 5vw, 8rem);
+  --sp-9: clamp(5rem, 4rem + 6vw, 9.5rem);
 
-  /* Раскладка */
-  --shell: 68rem;
+  /* Раскладка. Полоса шире прежней: бенто-сетке нужен размах,
+     на 68rem главный кейс переставал быть главным. */
+  --shell: 78rem;
   --gutter: clamp(1.25rem, 0.8rem + 2.2vw, 2.5rem);
 
-  --radius: 0.75rem;
-  --radius-lg: 1rem;
+  --radius: 0.85rem;
+  --radius-lg: 1.4rem;
+  --radius-xl: 1.9rem;
 
-  /* Стекло: полупрозрачная подложка, тонкий кант и блик по верхней кромке */
-  --glass-bg: color-mix(in srgb, var(--surface) 55%, transparent);
-  --glass-border: color-mix(in srgb, #ffffff 14%, transparent);
-  --glass-shine: inset 0 1px 0 color-mix(in srgb, #ffffff 12%, transparent);
-  --glass-shadow: 0 1px 2px rgba(2, 6, 23, 0.4), 0 12px 32px rgba(2, 6, 23, 0.45);
-  --glow-accent: 0 8px 34px color-mix(in srgb, var(--accent) 26%, transparent);
+  /* Стекло в духе iOS.
 
-  /* Движение — только микровзаимодействия */
-  --dur: 180ms;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+     Размытие сильное и с подъёмом насыщенности: стекло должно
+     подхватывать цвет того, что под ним, иначе это просто серая
+     плашка. Кант не один: сверху яркая грань, по бокам слабее,
+     снизу почти нет. Так кромка ловит свет, как настоящее стекло,
+     а не обводится ровной рамкой по кругу. */
+  --glass-blur: blur(26px) saturate(190%);
+  --glass-bg: rgba(255, 255, 255, 0.055);
+  --glass-bg-2: rgba(255, 255, 255, 0.015);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hi: rgba(255, 255, 255, 0.2);
+  --glass-shine: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 1px 0 0 rgba(255, 255, 255, 0.09), inset -1px 0 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 14px 40px -14px rgba(0, 0, 0, 0.8);
+  --glow-accent: 0 10px 40px -12px rgba(127, 209, 174, 0.35);
+
+  /* Плотность фонового шума. Два процента: на глаз это не зерно,
+     а ощущение, что у поверхности есть материал. */
+  --grain: 0.022;
+
+  /* Диагональная штриховка под контентом. Стекло без неё не работает:
+     размывать ровную заливку нечего, и панель читается плоской. */
+  --weave-fine: rgba(255, 255, 255, 0.022);
+  --weave-wide: rgba(255, 255, 255, 0.013);
+
+  /* Движение. Пружинная кривая одна на весь сайт, длительности три:
+     мгновенная для состояний, основная для перемещений, длинная
+     для появления блоков. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 240ms;
+  --dur: 600ms;
+  --dur-slow: 900ms;
 }
 
 [data-theme="light"] {
-  --bg: #ffffff;
-  --surface: #f8fafc;
-  --surface-2: #f1f5f9;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
+  /* Шёлк, а не белый: у бумаги тоже есть температура. */
+  --bg: #f9f8f6;
+  --bg-deep: #f2f0ec;
+  --surface: #ffffff;
+  --surface-2: #f4f2ee;
 
-  --text: #0f172a;
-  --text-muted: #475569;
-  --text-dim: #64748b;
+  --border: rgba(11, 13, 16, 0.09);
+  --border-strong: rgba(11, 13, 16, 0.18);
 
-  --accent: #047857;
-  --accent-dim: rgba(4, 120, 87, 0.09);
-  --accent-line: rgba(4, 120, 87, 0.28);
-  --on-accent: #ecfdf5;
-  --sky: #0284c7;
+  --text: #14161a;
+  --text-muted: #55595f;
+  --text-dim: #7b8087;
 
-  --glass-bg: color-mix(in srgb, #ffffff 62%, transparent);
-  --glass-border: color-mix(in srgb, var(--text) 12%, transparent);
-  --glass-shine: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --glass-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 12px 30px rgba(15, 23, 42, 0.1);
-  --glow-accent: 0 8px 30px color-mix(in srgb, var(--accent) 18%, transparent);
+  --accent: #1f7a5a;
+  --accent-dim: rgba(31, 122, 90, 0.08);
+  --accent-line: rgba(31, 122, 90, 0.26);
+  --on-accent: #f2fbf7;
+
+  --bronze: #8a7458;
+  --bronze-line: rgba(138, 116, 88, 0.3);
+
+  --sky: #3c6d94;
+
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-2: rgba(255, 255, 255, 0.34);
+  --glass-border: rgba(11, 13, 16, 0.08);
+  --glass-border-hi: rgba(11, 13, 16, 0.18);
+  --glass-shine: inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 1px 0 0 rgba(255, 255, 255, 0.6), inset -1px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(11, 13, 16, 0.04);
+  --glass-shadow: 0 1px 2px rgba(11, 13, 16, 0.05), 0 16px 40px -18px rgba(11, 13, 16, 0.22);
+  --glow-accent: 0 10px 36px -14px rgba(31, 122, 90, 0.3);
+
+  --grain: 0.03;
+
+  --weave-fine: rgba(11, 13, 16, 0.032);
+  --weave-wide: rgba(11, 13, 16, 0.018);
 }
 
 /* ---------- 2. Сброс ---------- */
@@ -105,6 +166,21 @@ html {
   scroll-padding-top: 5rem;
 }
 
+/* Плавную прокрутку ведёт Lenis. Пока он не поднялся, работает
+   штатная; как только перехватил, нативную надо убрать, иначе
+   два механизма тянут страницу одновременно. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   position: relative;
   min-height: 100dvh;
@@ -115,36 +191,45 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 
-/* Космическая подложка: три мягких пятна света и медленный дрейф.
-   Никаких звёзд и туманностей — на тёмном фоне хватает трёх градиентов,
-   чтобы страница перестала быть плоской заливкой. */
+/* Раньше здесь лежали три цветных пятна. Они читались не как объём,
+   а как непромытые разводы: у пятна нет ни формы, ни причины быть
+   в этом месте. Осталась одна вертикаль от тёмного низа к чуть более
+   светлому верху, без цвета и без движения. */
 body::before {
   content: "";
   position: fixed;
-  inset: -20%;
-  z-index: -1;
+  inset: 0;
+  z-index: -2;
   pointer-events: none;
-  background:
-    radial-gradient(38rem 26rem at 15% 0%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 62%),
-    radial-gradient(34rem 24rem at 85% 12%, color-mix(in srgb, var(--sky) 12%, transparent), transparent 64%),
-    radial-gradient(46rem 30rem at 50% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 62%);
-  animation: drift 48s ease-in-out infinite alternate;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.028), transparent 42%),
+    linear-gradient(0deg, var(--bg-deep), transparent 34%);
 }
 
-@keyframes drift {
-  from {
-    transform: translate3d(-1.5%, -1%, 0) scale(1);
-  }
-  to {
-    transform: translate3d(1.5%, 1.5%, 0) scale(1.06);
-  }
+[data-theme="light"] body::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), transparent 42%),
+    linear-gradient(0deg, var(--bg-deep), transparent 34%);
+}
+
+/* Зерно. Слой поверх свечения и под содержимым: снимает
+   пластиковую гладкость градиентов. Картинка инлайновая,
+   отдельного запроса за ней не уходит. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }
 
 img,
-svg {
+svg,
+video {
   display: block;
   max-width: 100%;
   height: auto;
@@ -191,14 +276,38 @@ h3,
 h4 {
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   text-wrap: balance;
+}
+
+/* Антиква. Светлое начертание и отрицательный трекинг: у Cormorant
+   высокий контраст штриха, и на крупном кегле он держит строку сам. */
+.display {
+  font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+}
+
+.display em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bronze);
 }
 
 .mono {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--text-xs);
   letter-spacing: 0.04em;
+}
+
+/* Мелкие надписи в верхнем регистре. Разрядка обязательна:
+   без неё капитель слипается в кашу. */
+.caps {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--text-xs);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
 }
 
 /* ---------- 4. Раскладка ---------- */
@@ -208,6 +317,37 @@ h4 {
   max-width: var(--shell);
   margin-inline: auto;
   padding-inline: var(--gutter);
+}
+
+/* Диагональная штриховка. Лежит на секциях, а не на body: первый
+   экран остаётся чистым, там своё точечное поле, и две текстуры
+   в одном кадре спорили бы.
+
+   Слоя два: частые волосяные штрихи и редкие широкие полосы поверх.
+   Один слой читается как муар, два дают ощущение плетения.
+
+   Своя система координат у каждой секции обязательна. С фиксированным
+   слоем штриховка стояла бы на месте при прокрутке, а страница
+   ехала бы по ней. */
+.section,
+.textured {
+  position: relative;
+  z-index: 0;
+}
+
+.section::before,
+.textured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent 0 5px,
+      var(--weave-fine) 5px 6px
+    ),
+    repeating-linear-gradient(45deg, transparent 0 38px, var(--weave-wide) 38px 41px);
 }
 
 .section {
@@ -221,25 +361,41 @@ h4 {
   gap: var(--sp-3);
   font-family: var(--font-mono), monospace;
   font-size: var(--text-xs);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: var(--sp-5);
+  margin-bottom: var(--sp-4);
 }
 
 .section-label::before {
   content: "";
-  width: 1.25rem;
+  width: 1.75rem;
   height: 1px;
   background: var(--accent-line);
 }
 
+/* Заголовок раздела набран антиквой. Курсивная вставка внутри
+   уходит в бронзу и задаёт редакционную интонацию. */
 .section-title {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 600;
-  font-size: clamp(1.4rem, 1.2rem + 0.9vw, 2rem);
-  letter-spacing: -0.03em;
-  margin-bottom: var(--sp-6);
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  font-size: var(--display-sm);
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+  margin-bottom: var(--sp-7);
+}
+
+.section-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bronze);
+}
+
+/* Волосяная линейка с растворением к правому краю */
+.rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, var(--border-strong), transparent);
 }
 
 /* ---------- 5. Утилиты ---------- */
@@ -255,20 +411,15 @@ h4 {
   color: var(--on-accent);
   font-size: var(--text-sm);
   transform: translateY(-250%);
-  transition: transform var(--dur) var(--ease);
+  transition: transform var(--dur-fast) var(--ease);
 }
 
 .skip-link:focus {
   transform: translateY(0);
 }
 
-/* На светлой теме те же пятна выглядят грязью — приглушаем */
-[data-theme="light"] body::before {
-  opacity: 0.5;
-}
-
 /* ============================================================
-   Кнопки — один набор классов на весь сайт
+   Кнопки
    ============================================================ */
 
 .btn {
@@ -277,18 +428,33 @@ h4 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 2.9rem;
-  padding: 0 1.45rem;
+  min-height: 3.1rem;
+  padding: 0 1.6rem;
   border: 1px solid var(--glass-border);
   border-radius: 999px;
   font-size: var(--text-sm);
   font-weight: 500;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   overflow: hidden;
   isolation: isolate;
-  backdrop-filter: blur(16px) saturate(160%);
-  transition: transform 260ms var(--ease), box-shadow 260ms var(--ease),
-    border-color 260ms var(--ease), color 260ms var(--ease);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  /* Смещение к курсору пишет сюда Magnetic, а сам сдвиг делает CSS:
+     так притяжение и наведение не спорят за transform. */
+  --mag-x: 0px;
+  --mag-y: 0px;
+  --lift: 0px;
+  transform: translate3d(var(--mag-x), calc(var(--mag-y) + var(--lift)), 0);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* Пока курсор ведёт кнопку, догонять его плавным переходом нельзя:
+   получается резина. Управление берёт rAF в Magnetic. */
+.btn[data-magnetic="on"] {
+  transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
 }
 
 .btn > span {
@@ -296,7 +462,6 @@ h4 {
   z-index: 2;
 }
 
-/* Блик, пробегающий по стеклу при наведении */
 .btn::after {
   content: "";
   position: absolute;
@@ -305,11 +470,11 @@ h4 {
   background: linear-gradient(
     105deg,
     transparent 35%,
-    color-mix(in srgb, #ffffff 26%, transparent) 50%,
+    rgba(255, 255, 255, 0.22) 50%,
     transparent 65%
   );
   transform: translateX(-120%);
-  transition: transform 700ms var(--ease);
+  transition: transform 900ms var(--ease);
 }
 
 .btn:hover::after,
@@ -319,39 +484,39 @@ h4 {
 
 .btn:hover,
 .btn:focus-visible {
-  transform: translateY(-2px);
+  --lift: -2px;
+  border-color: var(--glass-border-hi);
 }
 
 .btn:active {
-  transform: translateY(0);
+  --lift: 1px;
 }
 
 .btn--glass {
-  background: var(--glass-bg);
+  background: linear-gradient(160deg, var(--glass-bg), var(--glass-bg-2));
   color: var(--text);
   box-shadow: var(--glass-shine), var(--glass-shadow);
 }
 
 .btn--glass:hover,
 .btn--glass:focus-visible {
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  border-color: var(--accent-line);
 }
 
 .btn--primary {
-  background: color-mix(in srgb, var(--accent) 88%, transparent);
-  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background: color-mix(in srgb, var(--accent) 90%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
   color: var(--on-accent);
   box-shadow: var(--glass-shine), var(--glow-accent);
 }
 
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  box-shadow: var(--glass-shine), 0 12px 44px color-mix(in srgb, var(--accent) 40%, transparent);
+  border-color: var(--accent);
+  box-shadow: var(--glass-shine), 0 14px 50px -12px color-mix(in srgb, var(--accent) 48%, transparent);
 }
 
-/* Без поддержки размытия подложка обязана стать плотной,
-   иначе текст на кнопке поплывёт по фону. */
-@supports not (backdrop-filter: blur(4px)) {
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
   .btn--glass {
     background: var(--surface);
   }
@@ -362,19 +527,22 @@ h4 {
 }
 
 /* ============================================================
-   Карточки — стекло и подсветка, идущая за курсором
+   Стекло 2.0
    ============================================================ */
 
 .glass-card {
   position: relative;
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  background: color-mix(in srgb, var(--surface) 66%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: var(--glass-shine);
+  /* Заливка градиентом, а не ровным цветом: у стекла верх всегда
+     светлее низа, потому что свет падает сверху. */
+  background: linear-gradient(160deg, var(--glass-bg), var(--glass-bg-2));
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shine), var(--glass-shadow);
   overflow: hidden;
-  transition: border-color 320ms var(--ease), transform 320ms var(--ease),
-    box-shadow 320ms var(--ease);
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
 }
 
 /* Пятно света под курсором. Координаты приходят из CardSpotlight
@@ -386,12 +554,12 @@ h4 {
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
-    16rem circle at var(--mx, 50%) var(--my, 0%),
-    color-mix(in srgb, var(--accent) 15%, transparent),
-    transparent 68%
+    22rem circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in srgb, var(--accent) 13%, transparent),
+    transparent 70%
   );
   opacity: 0;
-  transition: opacity 320ms var(--ease);
+  transition: opacity var(--dur) var(--ease);
 }
 
 .glass-card:hover::before {
@@ -400,40 +568,50 @@ h4 {
 
 .glass-card:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  border-color: var(--glass-border-hi);
   box-shadow: var(--glass-shine), var(--glass-shadow),
-    0 28px 70px -28px color-mix(in srgb, var(--accent) 45%, transparent);
+    0 40px 90px -40px color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
-/* Содержимое обязано лежать над пятном света */
 .glass-card > * {
   position: relative;
   z-index: 1;
 }
 
-@supports not (backdrop-filter: blur(4px)) {
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
   .glass-card {
     background: var(--surface);
   }
 }
 
-/* Плавное появление при входе в кадр. Без JS и при отключённых
-   анимациях содержимое видно сразу — базовое состояние видимое. */
+/* ============================================================
+   Появление
+   ============================================================ */
+
 .reveal {
   opacity: 1;
 }
 
 [data-reveal-ready="true"] .reveal {
   opacity: 0;
-  transform: translateY(22px) scale(0.995);
-  /* Длинная мягкая кривая: движение читается как дорогое, а не как «дёрг» */
-  transition: opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(26px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
 }
 
 [data-reveal-ready="true"] .reveal[data-shown="true"] {
   opacity: 1;
   transform: none;
+}
+
+/* Соседние элементы въезжают лесенкой, а не одним куском */
+[data-reveal-ready="true"] .reveal[data-delay="1"] {
+  transition-delay: 90ms;
+}
+[data-reveal-ready="true"] .reveal[data-delay="2"] {
+  transition-delay: 180ms;
+}
+[data-reveal-ready="true"] .reveal[data-delay="3"] {
+  transition-delay: 270ms;
 }
 
 /* ---------- 6. Настройки пользователя ---------- */

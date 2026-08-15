@@ -11,8 +11,12 @@
   padding-bottom: var(--sp-8);
 }
 
+.ctaLabel {
+  color: var(--accent);
+}
+
 .ctaTitle {
-  font-size: var(--text-2xl);
+  font-size: var(--display-md);
 }
 
 .ctaBody {
@@ -22,7 +26,7 @@
   text-wrap: pretty;
 }
 
-/* Оформление кнопки живёт в глобальных .btn — здесь только отступ */
+/* Оформление кнопки живёт в глобальных .btn, здесь только отступ */
 .ctaButton {
   margin-top: var(--sp-2);
 }
